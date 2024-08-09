@@ -31,7 +31,12 @@ const EventModal = ({ eventItem, onClose }: { eventItem: Event; onClose: () => v
 
 	return (
 		<section className="fixed inset-0 flex items-center justify-center z-20" onClick={onClose}>
-			<div className="bg-white m-4 p-6 shadow-lg w-full z-30" onClick={handleModalClick}>
+			<div className="bg-white m-4 p-6 shadow-lg w-full max-h-full overflow-y-auto z-30" onClick={handleModalClick}>
+				<div className="flex justify-end">
+					<button onClick={onClose} className="mt-4 p-2 text-grey rounded">
+						X
+					</button>
+				</div>
 				<section className="border-l-[3px] border-primary pl-1.5">
 					<div className="grid auto-rows-auto md:flex">
 						<p className="text-[1.375rem] text-primary mb-1.5">{startDate}</p>
@@ -44,7 +49,7 @@ const EventModal = ({ eventItem, onClose }: { eventItem: Event; onClose: () => v
 					<p>
 						{eventItem.attributes?.arrival?.city}, {eventItem.attributes?.arrival?.country}
 					</p>
-					<p style={{ fontFamily: "Open-Sans-Italic, sans-serif" }}>{eventItem.attributes?.arrival?.shortDescription}</p>
+					<i className="normal-case">{eventItem.attributes?.arrival?.shortDescription}</i>
 					<p>
 						<b>Veranstalter: </b>
 						{eventItem.attributes?.arrival?.organiser}
@@ -60,14 +65,20 @@ const EventModal = ({ eventItem, onClose }: { eventItem: Event; onClose: () => v
 						<Link href={`mailto:${eventItem.attributes?.arrival?.email}`}>{eventItem.attributes?.arrival?.email}</Link>
 					</p>
 				</section>
-				<section>
-					<div className="h1 !normal-case mb-4">{eventItem.attributes.title}</div>
-					<p>{eventItem.attributes.category.data.attributes.category}</p>
+				<section className="my-4">
+					<div className="h1 !normal-case">{eventItem.attributes.title}</div>
+					<i>{eventItem.attributes.category.data.attributes.category}</i>
 				</section>
-				<section>{/* add description */}</section>
-				<button onClick={onClose} className="mt-4 p-2 bg-primary text-white rounded">
-					Close
-				</button>
+				<section>
+					<div
+						className="mb-6"
+						dangerouslySetInnerHTML={{
+							__html: eventItem.attributes.description?.content?.map((item: Content) => item.children.map((child: Child) => child.text).join("")).join(""),
+						}}
+					/>
+					{eventItem.attributes.description?.registration && <b className="text-primary">Eine Anmeldung ist notwendig.</b>}
+					{eventItem.attributes.description?.registrationDescription && <p className="mt-2">{eventItem.attributes.description?.registrationDescription}</p>}
+				</section>
 			</div>
 			<div className="fixed inset-0 bg-black opacity-50" onClick={onClose}></div>
 		</section>

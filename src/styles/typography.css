@@ -32,12 +32,12 @@ h3,
 
 p,
 .p {
-	@apply leading-6;
+	@apply text-base leading-6;
 }
 
-p,
-.p {
-	@apply text-base;
+i,
+.i {
+	@apply text-sm uppercase;
 }
 
 span,
