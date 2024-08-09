@@ -1,5 +1,5 @@
 const fetchHero = async () => {
-	const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/main-layout?populate[hero][populate]=*`)
+	const response = await fetch(`${process.env.API_URL}/api/main-layout?populate[hero][populate]=*`)
 	const data = await response.json()
 
 	// Assuming hero is an array and we need to find "images.three-columns-images"

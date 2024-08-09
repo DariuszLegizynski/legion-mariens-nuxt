@@ -9,15 +9,13 @@ const Header = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/header?populate=*`)
+			const response = await fetch(`${process.env.API_URL}/api/header?populate=*`)
 			const data = await response.json()
 			setHeaderData(data.data.attributes.headerContent)
 		}
 
 		fetchData()
 	}, [])
-
-	console.log(headerData)
 
 	return (
 		<header className={`flex flex-col items-center mt-4 pt-4 pb-2 h-auto z-10 bg-white border-b-2 border-grey`}>
