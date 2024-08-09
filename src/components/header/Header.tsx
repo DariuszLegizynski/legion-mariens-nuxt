@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import Link from "next/link"
 
 // components
 import Burger from "@/components/header/burger/Burger"
@@ -17,18 +18,22 @@ const Header = () => {
 		fetchData()
 	}, [])
 
+	console.log({ headerData })
+
 	return (
 		<header className={`flex flex-col items-center mt-4 pt-4 pb-2 h-auto z-10 bg-white border-b-2 border-grey`}>
 			<div onClick={() => setIsActive(!isActive)}>
 				<Burger isActive={isActive} />
 			</div>
-			<nav className={`${isActive ? "" : "hidden"} max-w-[72vw] grid grid-cols-[auto_auto] h-12 items-center justify-self-center mx-auto fadeInFromTop`}>
-				{headerData?.map(item => (
-					<a key={item.id + item.linkName} href={item.url} className="text-white">
-						{item.title}
-					</a>
-				))}
-			</nav>
+			{isActive && (
+				<nav className={`nav-transition text-center uppercase grid gap-y-4 max-w-[72vw] mx-auto my-8`}>
+					{headerData?.map(item => (
+						<Link key={item.id + item.linkName} href={`${item.linkPath}`}>
+							<p className="text-primary">{item.linkName}</p>
+						</Link>
+					))}
+				</nav>
+			)}
 		</header>
 	)
 }

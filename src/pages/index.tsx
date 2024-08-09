@@ -26,8 +26,6 @@ const Home = () => {
 		fetchData()
 	}, [])
 
-	console.log(mainContentData)
-
 	return (
 		<Layout>
 			<main className="flex min-h-screen flex-col items-center justify-between mx-4 mt-20">

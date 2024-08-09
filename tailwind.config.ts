@@ -9,7 +9,7 @@ const config: Config = {
 				accent: "hsl(339, 84%, 43%)",
 				black: "hsl(210, 11%, 15%)",
 				white: "hsl(5, 0%, 100%)",
-				grey: "hsla(0, 0%, 0%, 0.15)",
+				grey: "hsl(0, 0%, 74%)",
 			},
 			screens: {
 				xxs: "375px",
