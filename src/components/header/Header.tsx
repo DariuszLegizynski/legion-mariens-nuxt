@@ -18,8 +18,6 @@ const Header = () => {
 		fetchData()
 	}, [])
 
-	console.log({ headerData })
-
 	return (
 		<header className={`flex flex-col items-center mt-4 pt-4 pb-2 h-auto z-10 bg-white border-b-2 border-grey`}>
 			<div onClick={() => setIsActive(!isActive)}>

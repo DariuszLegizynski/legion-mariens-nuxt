@@ -1,4 +1,5 @@
 import { useRouter } from "next/router"
+import Link from "next/link"
 
 import IconItems from "@/components/base/IconItems"
 
@@ -8,9 +9,10 @@ interface BaseButtonProps {
 	text?: string
 	width?: string
 	height?: string
+	linkPath?: string
 }
 
-const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, width, height }) => {
+const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, width, height, linkPath }) => {
 	const router = useRouter()
 
 	return (
@@ -20,7 +22,11 @@ const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, wid
 					<IconItems type={iconType} width={width} height={height} />
 				</button>
 			)}
-			{buttonType === "accent" && <button className="p-2 min-w-56 text-accent text-sm uppercase border-2 border-accent">{text}</button>}
+			{buttonType === "accent" && (
+				<Link href={`${linkPath}`} className="p-2 min-w-56 text-accent text-sm text-center uppercase border-2 border-accent">
+					{text}
+				</Link>
+			)}
 			{!buttonType && (
 				<button className="underline-effect transition-colors duration-200 ease-in-out transform relative">
 					<h4>{text}</h4>

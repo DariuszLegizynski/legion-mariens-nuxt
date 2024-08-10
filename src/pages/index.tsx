@@ -9,9 +9,12 @@ import { LandingPageData, Content, Child } from "@/types/LandingPage"
 
 // components
 import Separator from "@/components/base/Separator"
+import EventComponent from "@/components/event/EventComponent"
+import BaseButton from "@/components/base/BaseButton"
 
 const Home = () => {
 	const [mainContentData, setMainContentData] = useState<LandingPageData[]>([])
+	const [events, setEvents] = useState([])
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -22,13 +25,21 @@ const Home = () => {
 
 			setMainContentData(data.data.attributes)
 		}
-
 		fetchData()
+
+		const fetchEvents = async () => {
+			const today = new Date().toISOString()
+			const response = await fetch(`${process.env.API_URL}/api/events?filters[startTime][$gte]=${today}&pagination[pageSize]=10&populate=*&sort=startTime:ASC`)
+			const data = await response.json()
+
+			setEvents(data.data)
+		}
+		fetchEvents()
 	}, [])
 
 	return (
 		<Layout>
-			<main className="flex min-h-screen flex-col items-center justify-between mx-4 mt-20">
+			<main className="flex min-h-screen flex-col items-center justify-between mx-4 my-20">
 				{mainContentData.introduction && (
 					<section className="flex flex-col mb-8">
 						<div>
@@ -72,6 +83,14 @@ const Home = () => {
 						/>
 					</section>
 				)}
+				<section className="grid grid-cols-1 gap-y-8">
+					{events.length > 0 ? (
+						events.map((eventItem: Event, index) => <EventComponent key={`event_${index}`} eventItem={eventItem} isVisible={true} />)
+					) : (
+						<p className="mt-16 text-center">Keine Ereignisse für diese Kriterien gefunden.</p>
+					)}
+					<BaseButton text="Alle Termine" buttonType="accent" linkPath="/termine" />
+				</section>
 			</main>
 		</Layout>
 	)

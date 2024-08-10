@@ -19,7 +19,6 @@ const termine = () => {
 		fetchData()
 	}, [])
 
-	console.log(termine)
 	return (
 		<Layout>
 			<article className="mt-20 mb-40">

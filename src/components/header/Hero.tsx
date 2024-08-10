@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import Link from "next/link"
 
 // helpers
 import fetchHero from "@/helpers/fetch-hero"
@@ -18,13 +19,15 @@ const Hero = () => {
 	return (
 		<section className="flex flex-col items-center gap-y-4 mx-4 md:grid md:grid-cols-3 md:gap-x-4">
 			{heroContent?.leftImage?.url && (
-				<Image
-					className="max-w-[400px] w-full min-h-24"
-					src={`${process.env.API_URL}${heroContent.leftImage?.url}`}
-					alt={`${process.env.API_URL}/${heroContent.leftImage?.alternativeText}`}
-					width={400}
-					height={200}
-				/>
+				<Link href="/">
+					<Image
+						className="max-w-[400px] w-full min-h-24"
+						src={`${process.env.API_URL}${heroContent.leftImage?.url}`}
+						alt={`${process.env.API_URL}/${heroContent.leftImage?.alternativeText}`}
+						width={400}
+						height={200}
+					/>
+				</Link>
 			)}
 			{heroContent?.centerImage?.url && (
 				<Image
