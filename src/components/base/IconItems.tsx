@@ -3,14 +3,20 @@ import { FC } from "react"
 interface IconItemsProps {
 	type: string
 	fillColor?: string
+	strokeColor?: string
 	width: string
 	height: string
-	baseClass: string
+	baseClass?: string
 }
 
-const IconItems: FC<IconItemsProps> = ({ type, fillColor, width, height, baseClass = "" }) => {
+const IconItems: FC<IconItemsProps> = ({ type, fillColor, strokeColor, width, height, baseClass = "" }) => {
 	return (
 		<>
+			{type === "close" ? (
+				<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} fill="none" viewBox="0 0 24 24">
+					<path stroke="hsl(0, 0%, 50%)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m16 16-4-4m0 0L8 8m4 4 4-4m-4 4-4 4" />
+				</svg>
+			) : null}
 			{type === "separator" ? (
 				<svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" viewBox="0 0 1190.549 841.891" width={width} height={height} className={baseClass}>
 					<path

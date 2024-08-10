@@ -10,6 +10,7 @@ const config: Config = {
 				black: "hsl(210, 11%, 15%)",
 				white: "hsl(5, 0%, 100%)",
 				grey: "hsl(0, 0%, 74%)",
+				"grey-dark": "hsl(0, 0%, 20%)",
 			},
 			screens: {
 				xxs: "375px",
