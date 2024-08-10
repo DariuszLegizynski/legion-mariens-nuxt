@@ -15,13 +15,14 @@ const EventList = () => {
 	const [category, setCategory] = useState("Alle Kategorien")
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const response = await fetch(`${process.env.API_URL}/api/events?populate=*&sort=startTime:ASC`)
+		const fetchEvents = async () => {
+			const today = new Date().toISOString()
+			const response = await fetch(`${process.env.API_URL}/api/events?filters[startTime][$gte]=${today}?populate=*&sort=startTime:ASC`)
 			const data = await response.json()
 
 			setEventList(data.data)
 		}
-		fetchData()
+		fetchEvents()
 
 		const fetchCategories = async () => {
 			const response = await fetch(`${process.env.API_URL}/api/categories?populate=*&sort=category:ASC`)
