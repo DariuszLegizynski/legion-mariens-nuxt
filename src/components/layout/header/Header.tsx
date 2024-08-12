@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import Link from "next/link"
 
@@ -14,6 +12,7 @@ const Header = () => {
 	const [isLoginActive, setIsLoginActive] = useState<boolean>(false)
 	const [headerData, setHeaderData] = useState([])
 	const { isAuthenticated } = useAuth()
+	const [isClient, setIsClient] = useState<boolean>(false)
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -25,9 +24,17 @@ const Header = () => {
 		fetchData()
 	}, [])
 
+	useEffect(() => {
+		setIsClient(true)
+	}, [])
+
+	if (!isClient) {
+		return null
+	}
+
 	return (
 		<header className={`fixed top-0 left-0 items-center px-2 pt-4 pb-2 h-auto z-10 bg-white border-b-2 border-grey w-full`}>
-			<section className={`flex ${isAuthenticated ? "justify-between gap-x-4" : "flex-col"}`}>
+			<section className={`flex ${isAuthenticated ? "justify-between" : "flex-col"}`}>
 				<div
 					onClick={() => {
 						setIsActive(!isActive)
