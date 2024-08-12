@@ -2,11 +2,11 @@
 	@apply w-7 min-h-8 flex relative justify-center items-center cursor-pointer;
 }
 .burger__stick {
-	@apply w-7 h-[0.15rem] transition-all duration-500 ease-in-out bg-primary;
+	@apply w-7 h-[0.188rem] transition-all duration-500 ease-in-out bg-primary;
 }
 .burger__stick::before,
 .burger__stick::after {
-	@apply content-[''] absolute w-7 h-[0.15rem] transition-all duration-500 ease-in-out bg-primary;
+	@apply content-[''] absolute w-7 h-[0.188rem] transition-all duration-500 ease-in-out bg-primary;
 }
 
 .burger__stick::before {

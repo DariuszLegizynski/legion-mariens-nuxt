@@ -1,4 +1,3 @@
-import { useRouter } from "next/router"
 import Link from "next/link"
 
 import IconItems from "@/components/base/IconItems"
@@ -15,8 +14,6 @@ interface BaseButtonProps {
 }
 
 const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, width, height, linkPath, isDisabled, onClick }) => {
-	const router = useRouter()
-
 	return (
 		<>
 			{buttonType === "close" && (

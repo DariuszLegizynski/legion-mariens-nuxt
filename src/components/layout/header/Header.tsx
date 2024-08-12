@@ -17,6 +17,8 @@ const Header = () => {
 	const { isAuthenticated } = useAuth()
 	const [isClient, setIsClient] = useState<boolean>(false)
 
+	const router = useRouter()
+
 	useEffect(() => {
 		const fetchData = async () => {
 			const response = await fetch(`${process.env.API_URL}/api/header?populate=*`)
@@ -34,8 +36,6 @@ const Header = () => {
 	if (!isClient) {
 		return null
 	}
-
-	const router = useRouter()
 
 	const handleSignOut = () => {
 		sessionStorage.clear()
