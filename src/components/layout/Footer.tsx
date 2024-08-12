@@ -4,10 +4,10 @@ import Link from "next/link"
 const Footer = () => {
 	const currentYear = new Date().getFullYear()
 	return (
-		<footer className="flex flex-col items-center justify-center bg-gray-800 text-white py-4">
+		<footer className="flex flex-col items-center justify-center text-primary bg-white py-8 border-t border-accent">
 			<Link href="/" className="flex flex-col items-center justify-center">
-				<Image src="/logo.svg" alt="Logo" width={64} height={64} />
-				<p className="text-xs mt-2">© {currentYear} Legion-Mariens.at</p>
+				<Image src="/images/Standarte_LM.svg" alt="Logo der Standarde von der Legion Mariens" width={32} height={32} />
+				<span className="mt-4">© {currentYear} Legion-Mariens.at</span>
 			</Link>
 		</footer>
 	)

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 
 // components
-import Burger from "@/components/header/burger/Burger"
+import Burger from "@/components/layout/header/burger/Burger"
 
 const Header = () => {
 	const [isActive, setIsActive] = useState(false)

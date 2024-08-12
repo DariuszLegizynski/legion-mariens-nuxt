@@ -12,6 +12,11 @@ import Separator from "@/components/base/Separator"
 import EventComponent from "@/components/event/EventComponent"
 import BaseButton from "@/components/base/BaseButton"
 
+export const metadata = {
+	title: "Legion Mariens",
+	description: "Legion Mariens Website",
+}
+
 const Home = () => {
 	const [mainContentData, setMainContentData] = useState<LandingPageData[]>([])
 	const [events, setEvents] = useState([])
