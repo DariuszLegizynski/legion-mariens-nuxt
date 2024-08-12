@@ -4,7 +4,6 @@ const useSignIn = (identifier = "", password = "") => {
 	const [data, setData] = useState(null)
 	const [error, setError] = useState(null)
 	const [loading, setLoading] = useState<boolean>(false)
-	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
 
 	const postAuth = async () => {
 		setLoading(true)
@@ -21,7 +20,6 @@ const useSignIn = (identifier = "", password = "") => {
 
 			if (!response.ok) {
 				setData(null)
-				setIsAuthenticated(false)
 				throw new Error(`Status: ${response.status}, Benutzername oder Passwort falsch.`)
 			}
 
@@ -29,9 +27,7 @@ const useSignIn = (identifier = "", password = "") => {
 			setData(result)
 			sessionStorage.setItem("user", JSON.stringify(data?.user?.username))
 			sessionStorage.setItem("token", data?.jwt)
-			setIsAuthenticated(true)
 		} catch (error) {
-			setIsAuthenticated(false)
 			setData(null)
 			setError(error.message)
 		} finally {
@@ -39,7 +35,7 @@ const useSignIn = (identifier = "", password = "") => {
 		}
 	}
 
-	return { data, error, loading, postAuth, isAuthenticated }
+	return { data, error, loading, postAuth }
 }
 
 export default useSignIn

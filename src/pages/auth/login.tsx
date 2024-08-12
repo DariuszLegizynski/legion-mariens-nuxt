@@ -3,12 +3,14 @@ import { useState } from "react"
 import BaseButton from "@/components/base/BaseButton"
 import Layout from "@/components/layout"
 
+// hooks
 import useSignIn from "@/hooks/useSignIn"
+import useAuth from "@/hooks/useAuth"
 
 const login = () => {
 	const [identifier, setIdentifier] = useState<string>("")
 	const [password, setPassword] = useState<string>("")
-	const { data, error, loading, postAuth, isAuthenticated } = useSignIn(identifier, password)
+	const { data, error, loading, postAuth } = useSignIn(identifier, password)
 
 	const onSignIn = e => {
 		e.preventDefault()
@@ -16,17 +18,7 @@ const login = () => {
 		postAuth()
 	}
 
-	// useEffect(() => {
-	// 	if (data) {
-	// 		sessionStorage.setItem("user", JSON.stringify(data?.user?.username))
-	// 		sessionStorage.setItem("token", data?.jwt)
-	// 	}
-
-	// 	const jwt = sessionStorage.getItem("token")
-	// 	if (jwt) {
-	// 		setIsAuthenticated(true)
-	// 	}
-	// }, [data])
+	const { isAuthenticated } = useAuth()
 
 	return (
 		<Layout>
