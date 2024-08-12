@@ -35,7 +35,7 @@ const login = () => {
 								<label htmlFor="password">Passwort:</label>
 								<input type="password" value={password} id="password" name="password" onChange={e => setPassword(e.target.value)} required />
 							</div>
-							<BaseButton isDisabled={!(identifier && password)} text="Anmelden" />
+							<BaseButton isDisabled={!(identifier && password)} buttonType="submit" text="Anmelden" />
 						</form>
 					</section>
 				)}

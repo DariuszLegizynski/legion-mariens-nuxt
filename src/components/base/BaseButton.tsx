@@ -11,9 +11,10 @@ interface BaseButtonProps {
 	height?: string
 	linkPath?: string
 	isDisabled?: boolean
+	onClick?: () => void
 }
 
-const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, width, height, linkPath, isDisabled }) => {
+const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, width, height, linkPath, isDisabled, onClick }) => {
 	const router = useRouter()
 
 	return (
@@ -28,8 +29,13 @@ const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, wid
 					{text}
 				</Link>
 			)}
-			{!buttonType && (
+			{buttonType === "submit" && (
 				<button disabled={isDisabled} type="submit" className="p-2 min-w-56 text-accent text-sm text-center uppercase border-2 border-accent w-full">
+					<p>{text}</p>
+				</button>
+			)}
+			{buttonType === "logout" && (
+				<button onClick={onClick} className="p-2 text-accent uppercase w-full">
 					<p>{text}</p>
 				</button>
 			)}

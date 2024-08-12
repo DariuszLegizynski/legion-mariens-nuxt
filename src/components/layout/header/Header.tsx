@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { useRouter } from "next/router"
 
 // components
 import Burger from "@/components/layout/header/burger/Burger"
+import IconItems from "@/components/base/IconItems"
 
 // hooks
 import useAuth from "@/hooks/useAuth"
+import BaseButton from "@/components/base/BaseButton"
 
 const Header = () => {
 	const [isActive, setIsActive] = useState<boolean>(false)
@@ -32,6 +35,13 @@ const Header = () => {
 		return null
 	}
 
+	const router = useRouter()
+
+	const handleSignOut = () => {
+		sessionStorage.clear()
+		router.push("/")
+	}
+
 	return (
 		<header className={`fixed top-0 left-0 items-center px-2 pt-4 pb-2 h-auto z-10 bg-white border-b-2 border-grey w-full`}>
 			<section className={`flex ${isAuthenticated ? "justify-between" : "flex-col"}`}>
@@ -43,14 +53,17 @@ const Header = () => {
 				>
 					<Burger isActive={isActive} />
 				</div>
-				<div
-					onClick={() => {
-						setIsLoginActive(!isLoginActive)
-						setIsActive(false)
-					}}
-				>
-					Avatar
-				</div>
+				{isAuthenticated && (
+					<div
+						className="cursor-pointer"
+						onClick={() => {
+							setIsLoginActive(!isLoginActive)
+							setIsActive(false)
+						}}
+					>
+						<IconItems type="user" width="2rem" height="2rem" strokeColor="none" fillColor="#3C52A3" />
+					</div>
+				)}
 			</section>
 			<section>
 				{isActive && (
@@ -67,9 +80,7 @@ const Header = () => {
 						<Link href="/cart">
 							<p className="text-primary">Warenkorb</p>
 						</Link>
-						<Link href="/cart">
-							<p className="text-primary">Abmelden</p>
-						</Link>
+						<BaseButton onClick={handleSignOut} buttonType="logout" text="Abmelden" />
 					</nav>
 				)}
 			</section>
