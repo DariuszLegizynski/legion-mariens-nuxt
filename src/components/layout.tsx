@@ -7,9 +7,9 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => (
-	<article className="mt-4">
-		<Hero />
+	<article className="mt-8 md:mt-32">
 		<Header />
+		<Hero />
 		{children}
 		<Footer />
 	</article>

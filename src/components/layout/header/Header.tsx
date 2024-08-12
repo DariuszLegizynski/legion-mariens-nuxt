@@ -4,9 +4,14 @@ import Link from "next/link"
 // components
 import Burger from "@/components/layout/header/burger/Burger"
 
+// hooks
+import useAuth from "@/hooks/useAuth"
+
 const Header = () => {
-	const [isActive, setIsActive] = useState(false)
+	const [isActive, setIsActive] = useState<boolean>(false)
+	const [isLoginActive, setIsLoginActive] = useState<boolean>(false)
 	const [headerData, setHeaderData] = useState([])
+	const { isAuthenticated } = useAuth()
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -19,19 +24,46 @@ const Header = () => {
 	}, [])
 
 	return (
-		<header className={`flex flex-col items-center mt-4 pt-4 pb-2 h-auto z-10 bg-white border-b-2 border-grey`}>
-			<div onClick={() => setIsActive(!isActive)}>
-				<Burger isActive={isActive} />
-			</div>
-			{isActive && (
-				<nav className={`nav-transition text-center uppercase grid gap-y-4 max-w-[72vw] mx-auto my-8`}>
-					{headerData?.map(item => (
-						<Link key={item.id + item.linkName} href={`${item.linkPath}`}>
-							<p className="text-primary">{item.linkName}</p>
+		<header className={`fixed top-0 left-0 items-center px-2 pt-4 pb-2 h-auto z-10 bg-white border-b-2 border-grey w-full`}>
+			<section className={`flex ${isAuthenticated ? "justify-between gap-x-4" : "flex-col"}`}>
+				<div
+					onClick={() => {
+						setIsActive(!isActive)
+						setIsLoginActive(false)
+					}}
+				>
+					<Burger isActive={isActive} />
+				</div>
+				<div
+					onClick={() => {
+						setIsLoginActive(!isLoginActive)
+						setIsActive(false)
+					}}
+				>
+					Avatar
+				</div>
+			</section>
+			<section>
+				{isActive && (
+					<nav className={`nav-transition text-center uppercase grid gap-y-4 max-w-[72vw] mx-auto my-8`}>
+						{headerData?.map(item => (
+							<Link key={item.id + item.linkName} href={`${item.linkPath}`}>
+								<p className="text-primary">{item.linkName}</p>
+							</Link>
+						))}
+					</nav>
+				)}
+				{isAuthenticated && isLoginActive && (
+					<nav className={`nav-transition text-center uppercase grid gap-y-4 max-w-[72vw] mx-auto my-8`}>
+						<Link href="/cart">
+							<p className="text-primary">Warenkorb</p>
 						</Link>
-					))}
-				</nav>
-			)}
+						<Link href="/cart">
+							<p className="text-primary">Abmelden</p>
+						</Link>
+					</nav>
+				)}
+			</section>
 		</header>
 	)
 }

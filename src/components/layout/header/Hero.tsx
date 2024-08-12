@@ -17,7 +17,7 @@ const Hero = () => {
 	}, [])
 
 	return (
-		<section className="flex flex-col items-center gap-y-4 mx-4 md:grid md:grid-cols-3 md:gap-x-4">
+		<section className="flex flex-col items-center gap-y-4 mt-12 mx-4 md:grid md:grid-cols-3 md:gap-x-4">
 			{heroContent?.leftImage?.url && (
 				<Link href="/">
 					<Image
