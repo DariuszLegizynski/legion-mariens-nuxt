@@ -27,3 +27,18 @@
 .slide-down {
 	animation: slideDown 0.5s ease-out;
 }
+
+@keyframes slideInFromLeft {
+	from {
+		transform: translateX(-120px);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0px);
+		opacity: 1;
+	}
+}
+
+.slide-in-from-left {
+	animation: slideInFromLeft 0.5s ease-out;
+}

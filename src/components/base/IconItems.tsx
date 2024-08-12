@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 
 interface IconItemsProps {
 	type: string
@@ -7,11 +7,40 @@ interface IconItemsProps {
 	width: string
 	height: string
 	baseClass?: string
+	rotation?: string
 }
 
-const IconItems: FC<IconItemsProps> = ({ type, fillColor, strokeColor, width, height, baseClass = "" }) => {
+const IconItems: FC<IconItemsProps> = ({ type, fillColor, strokeColor, width, height, baseClass = "", rotation = "rotate-0" }) => {
 	return (
 		<>
+			{type === "rarr" && (
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width={width}
+					height={height}
+					fill={fillColor}
+					viewBox="0 0 24 24"
+					className={`${rotation ? "rotate-90" : "rotate-0"} transition-transform`}
+				>
+					<path stroke={strokeColor} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m10 7 5 5-5 5" />
+				</svg>
+			)}
+			{type === "darr" && (
+				<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} fill={fillColor} viewBox="0 0 24 24">
+					<path stroke={strokeColor} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m7 10 5 5 5-5" />
+				</svg>
+			)}
+			{type === "cart" && (
+				<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} fill={fillColor} viewBox="0 -0.5 25 25">
+					<g stroke={strokeColor} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
+						<path
+							d="M9.692 17.95a1.048 1.048 0 1 1-2.096-.004 1.048 1.048 0 0 1 2.096.004v0ZM15.281 17.95a1.048 1.048 0 1 1-2.096-.004 1.048 1.048 0 0 1 2.096.004v0ZM19.1 7.8H8.993l-.7 5.6a1.4 1.4 0 0 0 1.4 1.4h6.2a1.4 1.4 0 0 0 1.2-.68l3.207-4.2a1.4 1.4 0 0 0-1.2-2.12Z"
+							clip-rule="evenodd"
+						/>
+						<path d="m8.993 7.8-.669-2.682A.157.157 0 0 0 8.171 5H5.5" />
+					</g>
+				</svg>
+			)}
 			{type === "user" && (
 				<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} fill={fillColor} viewBox="0 0 466 466">
 					<path

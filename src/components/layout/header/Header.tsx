@@ -14,6 +14,8 @@ const Header = () => {
 	const [isActive, setIsActive] = useState<boolean>(false)
 	const [isLoginActive, setIsLoginActive] = useState<boolean>(false)
 	const [headerData, setHeaderData] = useState([])
+	const [expandedCategoryId, setExpandedCategoryId] = useState<number | null>(null)
+	const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null)
 	const { isAuthenticated } = useAuth()
 	const [isClient, setIsClient] = useState<boolean>(false)
 
@@ -21,13 +23,15 @@ const Header = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const response = await fetch(`${process.env.API_URL}/api/header?populate=*`)
+			const response = await fetch(`${process.env.API_URL}/api/header?populate[headerContent][populate]=*`)
 			const data = await response.json()
 			setHeaderData(data.data.attributes.headerContent)
 		}
 
 		fetchData()
 	}, [])
+
+	console.log({ headerData })
 
 	useEffect(() => {
 		setIsClient(true)
@@ -40,6 +44,14 @@ const Header = () => {
 	const handleSignOut = () => {
 		sessionStorage.clear()
 		router.push("/")
+	}
+
+	const handleCategoryClick = (categoryId: number) => {
+		if (expandedCategoryId === categoryId) {
+			setExpandedCategoryId(null)
+		} else {
+			setExpandedCategoryId(categoryId)
+		}
 	}
 
 	return (
@@ -67,11 +79,43 @@ const Header = () => {
 			</section>
 			<section>
 				{isActive && (
-					<nav className={`nav-transition text-center uppercase grid gap-y-4 max-w-[72vw] mx-auto my-8`}>
+					<nav className={`nav-transition text-left uppercase grid gap-y-4 max-w-[72vw] mx-auto my-8`}>
 						{headerData?.map(item => (
-							<Link key={item.id + item.linkName} href={`${item.linkPath}`}>
-								<p className="text-primary">{item.linkName}</p>
-							</Link>
+							<div key={item.id + item.linkName}>
+								{item.subCategory ? (
+									<div onClick={() => handleCategoryClick(item.id + item.linkName)}>
+										<p className={`text-primary cursor-pointer flex`}>
+											{item.linkName}
+											<IconItems
+												type="rarr"
+												fillColor="#3C52A3"
+												width="1.4rem"
+												height="1.4rem"
+												rotation={expandedCategoryId === item.id + item.linkName ? true : false}
+											/>
+										</p>
+									</div>
+								) : (
+									<Link onClick={() => handleCategoryClick(item.id + item.linkName)} href={`${item.linkPath}`}>
+										<p className="text-primary cursor-pointer">{item.linkName}</p>
+									</Link>
+								)}
+								{item.subCategory && expandedCategoryId === item.id + item.linkName && (
+									<ul className="text-start slide-in-from-left">
+										<Link onClick={() => handleCategoryClick(item.id + item.linkName)} href={`${item.linkPath}`}>
+											<span className={`text-primary cursor-pointer`}>{item.linkName}</span>
+										</Link>
+										{item.subCategory &&
+											item.subCategory.map(subItem => (
+												<li key={subItem.id + subItem.linkName}>
+													<Link href={`${subItem.linkPath}`}>
+														<span className="text-primary">{subItem.linkName}</span>
+													</Link>
+												</li>
+											))}
+									</ul>
+								)}
+							</div>
 						))}
 					</nav>
 				)}
