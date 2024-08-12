@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import BaseButton from "@/components/base/BaseButton"
 import Layout from "@/components/layout"
@@ -12,10 +12,16 @@ const login = () => {
 
 	const onSignIn = e => {
 		e.preventDefault()
-		// Handle the sign-in logic here
-		console.log("Sign in clicked")
+
 		postAuth()
 	}
+
+	useEffect(() => {
+		if (data) {
+			sessionStorage.setItem("user", JSON.stringify(data?.user?.username))
+			sessionStorage.setItem("token", data?.jwt)
+		}
+	}, [data])
 
 	return (
 		<Layout>
@@ -34,10 +40,10 @@ const login = () => {
 						<BaseButton isDisabled={!(identifier && password)} text="Anmelden" />
 					</form>
 				</section>
-				<section>
+				<section className="text-center mt-8">
 					{loading && <p style={{ color: "blue" }}>Loading: {loading}</p>}
-					{error && <p style={{ color: "red" }}>Error: {error}</p>}
-					{data && <p>Success! User token: {data.jwt}</p>}
+					{error && <p style={{ color: "red" }}>{error}</p>}
+					{data && <p>Success!</p>}
 				</section>
 			</article>
 		</Layout>

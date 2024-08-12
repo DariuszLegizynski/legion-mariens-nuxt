@@ -3,7 +3,7 @@ import { useState } from "react"
 const useSignIn = (identifier, password) => {
 	const [data, setData] = useState(null)
 	const [error, setError] = useState(null)
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState<boolean>(false)
 
 	const postAuth = async () => {
 		setLoading(true)
@@ -19,17 +19,16 @@ const useSignIn = (identifier, password) => {
 			})
 
 			if (!response.ok) {
-				throw new Error(`HTTP error! Status: ${response.status}`)
+				setData(null)
+				throw new Error(`Status: ${response.status}, Benutzername oder Passwort falsch.`)
 			}
 
 			const result = await response.json()
 			setData(result)
-			console.log("Well done!")
-			console.log("User profile", result.user)
-			console.log("User token", result.jwt)
 		} catch (error) {
+			console.log(error)
+			setData(null)
 			setError(error.message)
-			console.log("An error occurred:", error.message)
 		} finally {
 			setLoading(false)
 		}
