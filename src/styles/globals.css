@@ -24,6 +24,16 @@ body {
 	padding: 0;
 }
 
-button {
+button,
+a {
 	@apply cursor-pointer;
 }
+
+input {
+	@apply cursor-pointer border-2 border-primary py-1.5 px-2.5 min-w-56 w-full;
+}
+
+label {
+	@apply w-full;
+}
+

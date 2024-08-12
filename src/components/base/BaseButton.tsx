@@ -23,7 +23,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, wid
 				</button>
 			)}
 			{buttonType === "accent" && (
-				<Link href={`${linkPath}`} className="p-2 min-w-56 text-accent text-sm text-center uppercase border-2 border-accent">
+				<Link href={`${linkPath}`} className="p-2 min-w-56 text-accent text-sm text-center uppercase border-2 border-accent w-full">
 					{text}
 				</Link>
 			)}
