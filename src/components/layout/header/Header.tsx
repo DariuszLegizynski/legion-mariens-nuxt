@@ -31,8 +31,6 @@ const Header = () => {
 		fetchData()
 	}, [])
 
-	console.log({ headerData })
-
 	useEffect(() => {
 		setIsClient(true)
 	}, [])

@@ -3,30 +3,66 @@ import { useState } from "react"
 import BaseButton from "@/components/base/BaseButton"
 import Layout from "@/components/layout"
 
-// hooks
-import useSignIn from "@/hooks/useSignIn"
-import useAuth from "@/hooks/useAuth"
+// export async function getServerSideProps({ req }) {
+// 	const { token } = req.cookies
 
-const login = () => {
-	const [identifier, setIdentifier] = useState<string>("")
-	const [password, setPassword] = useState<string>("")
-	const { data, error, loading, postAuth } = useSignIn(identifier, password)
+// 	// Check if user is logged in
+// 	if (token) {
+// 		const res = await fetch(`${process.env.API_URL}/users/me`, {
+// 			headers: {
+// 				Authorization: `Bearer ${token}`,
+// 			},
+// 		})
 
-	const onSignIn = e => {
+// 		if (res.ok) {
+// 			return {
+// 				props: { loggedIn: true }, // Pass a prop indicating the user is logged in
+// 			}
+// 		}
+// 	}
+
+// 	// If not logged in, continue to render the login page
+// 	return {
+// 		props: { loggedIn: false }, // Pass a prop indicating the user is not logged in
+// 	}
+// }
+
+const login = ({ loggedIn = false }) => {
+	const [identifier, setIdentifier] = useState("")
+	const [password, setPassword] = useState("")
+	const [error, setError] = useState("")
+	// // const [loading, setLoading] = useState(false)
+	// console.log({ loggedIn })
+	const handleLogin = async e => {
 		e.preventDefault()
 
-		postAuth()
-	}
+		// try {
+		// 	const res = await fetch("/api/login", {
+		// 		method: "POST",
+		// 		headers: {
+		// 			"Content-Type": "application/json",
+		// 		},
+		// 		body: JSON.stringify({ identifier, password }),
+		// 	})
 
-	const { isAuthenticated } = useAuth()
+		// 	if (res.ok) {
+		// 		loggedIn = true
+		// 	} else {
+		// 		const data = await res.json()
+		// 		setError(data.message || "Something went wrong")
+		// 	}
+		// } catch (error) {
+		// 	setError("Failed to log in")
+		// }
+	}
 
 	return (
 		<Layout>
 			<article className="my-20 mx-8">
-				<div className={`text-left mb-8 ${isAuthenticated ? "h2" : "h3"}`}>{isAuthenticated ? "Legionsleben" : "Anmelden (Geschützte Seite)"}</div>
-				{!isAuthenticated && (
+				<div className={`text-left mb-8 ${loggedIn ? "h2" : "h3"}`}>{loggedIn ? "Legionsleben" : "Anmelden (Geschützte Seite)"}</div>
+				{!loggedIn && (
 					<section>
-						<form onSubmit={onSignIn} className="flex flex-col items-center gap-y-4 w-full">
+						<form onSubmit={handleLogin} className="flex flex-col items-center gap-y-4 w-full">
 							<div className="flex flex-col items-start gap-y-2 w-full">
 								<label htmlFor="username">Benutzername:</label>
 								<input id="user" value={identifier} name="username" onChange={e => setIdentifier(e.target.value)} required />
@@ -39,13 +75,13 @@ const login = () => {
 						</form>
 					</section>
 				)}
-				{isAuthenticated ? (
+				{loggedIn ? (
 					<p>Wählen Sie aus den Unterpunkten des Menü</p>
 				) : (
 					<section className="text-center mt-8">
-						{loading && <p style={{ color: "blue" }}>Loading: {loading}</p>}
+						{/* {loading && <p style={{ color: "blue" }}>Loading: {loading}</p>} */}
 						{error && <p style={{ color: "red" }}>{error}</p>}
-						{data && <p>Success!</p>}
+						{/* {data && <p>Success!</p>} */}
 					</section>
 				)}
 			</article>
