@@ -31,7 +31,6 @@ const EventComponent = ({ eventItem, isVisible }: { eventItem: Event; isVisible:
 		minute: "numeric",
 	})
 
-	console.log("eventItem.attributes: ", eventItem.attributes)
 	return (
 		<>
 			{shouldAnimate ? (

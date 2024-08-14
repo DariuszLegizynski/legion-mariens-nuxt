@@ -6,6 +6,7 @@ const config: Config = {
 		extend: {
 			colors: {
 				primary: "hsl(227, 46%, 44%)",
+				"primary-light": "hsl(227, 46%, 64%)",
 				accent: "hsl(339, 84%, 43%)",
 				black: "hsl(210, 11%, 15%)",
 				white: "hsl(5, 0%, 100%)",

@@ -36,6 +36,14 @@ const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, wid
 					<p>{text}</p>
 				</button>
 			)}
+			{buttonType === "cart" && (
+				<button
+					onClick={onClick}
+					className="p-2 text-black capitalize w-full max-w-52 border border-grey rounded-xl hover:text-white focus:text-white hover:bg-primary focus:bg-primary"
+				>
+					<p>{text}</p>
+				</button>
+			)}
 		</>
 	)
 }

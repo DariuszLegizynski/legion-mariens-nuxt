@@ -31,7 +31,7 @@ const EventList = () => {
 		}
 		fetchCategories()
 	}, [])
-	console.log({ eventList })
+
 	useEffect(() => {
 		let filtered = eventList
 
