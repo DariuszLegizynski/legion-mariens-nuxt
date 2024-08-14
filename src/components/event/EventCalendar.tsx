@@ -1,6 +1,6 @@
 const EventCalendar = ({ categories, setCategory, setStartDate, setEndDate }) => {
 	return (
-		<section className="grid grid-cols-1 gap-4 my-8 mx-auto md:grid-cols-3 md:mx-4">
+		<section className="grid grid-cols-1 gap-4 my-8 md:gap md:grid-cols-[1fr_1fr_1fr] md:gap-x-8 md:justify-between md:mx-4">
 			<select onChange={e => setCategory(e.target.value)}>
 				<option value="Alle Kategorien">Alle Kategorien</option>
 				{categories &&
