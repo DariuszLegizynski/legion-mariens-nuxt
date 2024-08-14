@@ -24,6 +24,10 @@ body {
 	padding: 0;
 }
 
+.max-container {
+	@apply xl:max-w-[1140px] xl:mx-auto;
+}
+
 button,
 a {
 	@apply cursor-pointer;
@@ -36,4 +40,3 @@ input {
 label {
 	@apply w-full;
 }
-

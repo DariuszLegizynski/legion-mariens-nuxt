@@ -27,15 +27,15 @@ import Layout from "@/components/layout"
 // 	}
 // }
 
-const login = ({ loggedIn = false }) => {
+const login = () => {
 	const [identifier, setIdentifier] = useState("")
 	const [password, setPassword] = useState("")
 	const [error, setError] = useState("")
 	// // const [loading, setLoading] = useState(false)
-	// console.log({ loggedIn })
+	const [loggedIn, setLoggedIn] = useState(false)
 	const handleLogin = async e => {
 		e.preventDefault()
-
+		setLoggedIn(true)
 		// try {
 		// 	const res = await fetch("/api/login", {
 		// 		method: "POST",

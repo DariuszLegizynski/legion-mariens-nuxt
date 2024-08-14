@@ -1,25 +1,22 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { useRouter } from "next/router"
 
 // components
 import Burger from "@/components/layout/header/burger/Burger"
 import IconItems from "@/components/base/IconItems"
-
-// hooks
-import useAuth from "@/hooks/useAuth"
 import BaseButton from "@/components/base/BaseButton"
 
-const Header = () => {
+const HeaderMobile = () => {
 	const [isActive, setIsActive] = useState<boolean>(false)
 	const [isLoginActive, setIsLoginActive] = useState<boolean>(false)
 	const [headerData, setHeaderData] = useState([])
 	const [expandedCategoryId, setExpandedCategoryId] = useState<number | null>(null)
-	const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null)
-	const { isAuthenticated } = useAuth()
 	const [isClient, setIsClient] = useState<boolean>(false)
 
 	const router = useRouter()
+	const isAuthenticated = true
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -53,8 +50,8 @@ const Header = () => {
 	}
 
 	return (
-		<header className={`fixed top-0 left-0 items-center px-2 pt-4 pb-2 h-auto z-10 bg-white border-b-2 border-grey w-full`}>
-			<section className={`flex ${isAuthenticated ? "justify-between" : "flex-col"}`}>
+		<header className={`fixed top-0 left-0 items-center px-2 pt-4 pb-2 h-auto z-10 bg-white border-b-2 border-grey w-full lg:hidden`}>
+			<section className="grid grid-cols-[1fr_1fr_1fr]">
 				<div
 					onClick={() => {
 						setIsActive(!isActive)
@@ -63,9 +60,10 @@ const Header = () => {
 				>
 					<Burger isActive={isActive} />
 				</div>
+				<Image className="h-8 mx-auto" src="/images/Standarte_LM.svg" alt="Logo der Standarde von der Legion Mariens" width={32} height={60} />
 				{isAuthenticated && (
 					<div
-						className="cursor-pointer"
+						className="cursor-pointer grid justify-items-end"
 						onClick={() => {
 							setIsLoginActive(!isLoginActive)
 							setIsActive(false)
@@ -77,7 +75,7 @@ const Header = () => {
 			</section>
 			<section>
 				{isActive && (
-					<nav className={`nav-transition text-left uppercase grid gap-y-4 max-w-[72vw] mx-auto my-8`}>
+					<nav className={`text-left uppercase grid gap-y-4 max-w-[72vw] mx-auto my-8`}>
 						{headerData?.map(item => (
 							<div key={item.id + item.linkName}>
 								{item.subCategory ? (
@@ -118,8 +116,8 @@ const Header = () => {
 					</nav>
 				)}
 				{isAuthenticated && isLoginActive && (
-					<nav className={`nav-transition text-center uppercase grid gap-y-4 max-w-[72vw] mx-auto my-8`}>
-						<Link href="/cart">
+					<nav className={`text-center uppercase grid justify-items-end gap-y-4 my-8`}>
+						<Link href="/cart" className="w-full max-w-72">
 							<p className="text-primary">Warenkorb</p>
 						</Link>
 						<BaseButton onClick={handleSignOut} buttonType="logout" text="Abmelden" />
@@ -130,4 +128,4 @@ const Header = () => {
 	)
 }
 
-export default Header
+export default HeaderMobile

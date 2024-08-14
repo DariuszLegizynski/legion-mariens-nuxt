@@ -15,6 +15,7 @@ const config: Config = {
 			screens: {
 				xxs: "375px",
 				xs: "425px",
+				"2xl": "1440px",
 				"3xl": "1920px",
 			},
 		},
@@ -22,4 +23,3 @@ const config: Config = {
 	plugins: [],
 }
 export default config
-

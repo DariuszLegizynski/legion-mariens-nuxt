@@ -22,17 +22,17 @@ const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, wid
 				</button>
 			)}
 			{buttonType === "accent" && (
-				<Link href={`${linkPath}`} className="p-2 min-w-56 text-accent text-sm text-center uppercase border-2 border-accent w-full">
+				<Link href={`${linkPath}`} className="p-2 min-w-56 text-accent text-sm text-center uppercase border-2 border-accent w-full max-w-72">
 					{text}
 				</Link>
 			)}
 			{buttonType === "submit" && (
-				<button disabled={isDisabled} type="submit" className="p-2 min-w-56 text-accent text-sm text-center uppercase border-2 border-accent w-full">
+				<button disabled={isDisabled} type="submit" className="p-2 min-w-56 text-accent text-sm text-center uppercase border-2 border-accent w-full max-w-72">
 					<p>{text}</p>
 				</button>
 			)}
 			{buttonType === "logout" && (
-				<button onClick={onClick} className="p-2 text-accent uppercase w-full">
+				<button onClick={onClick} className="p-2 text-accent uppercase w-full max-w-72">
 					<p>{text}</p>
 				</button>
 			)}
