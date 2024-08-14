@@ -21,7 +21,7 @@ const termine = () => {
 
 	return (
 		<Layout>
-			<article className="mt-20 mb-40">
+			<article className="mt-20 mb-40 max-container">
 				<section className="mx-4">
 					<h1 className="mb-8">{termine.title}</h1>
 					<div

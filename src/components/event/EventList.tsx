@@ -17,7 +17,7 @@ const EventList = () => {
 	useEffect(() => {
 		const fetchEvents = async () => {
 			const today = new Date().toISOString()
-			const response = await fetch(`${process.env.API_URL}/api/events?filters[startTime][$gte]=${today}?populate=*&sort=startTime:ASC`)
+			const response = await fetch(`${process.env.API_URL}/api/events?filters[startTime][$gte]=${today}&populate=*&sort=startTime:ASC`)
 			const data = await response.json()
 
 			setEventList(data.data)
@@ -27,12 +27,11 @@ const EventList = () => {
 		const fetchCategories = async () => {
 			const response = await fetch(`${process.env.API_URL}/api/categories?populate=*&sort=category:ASC`)
 			const data = await response.json()
-
 			setCategories(data.data)
 		}
 		fetchCategories()
 	}, [])
-
+	console.log({ eventList })
 	useEffect(() => {
 		let filtered = eventList
 
@@ -45,23 +44,23 @@ const EventList = () => {
 		}
 
 		if (category && category !== "Alle Kategorien") {
-			filtered = filtered.filter(event => event.attributes.category.data.attributes.category === category)
+			filtered = filtered.filter(event => event.attributes?.category?.data?.attributes.category === category)
 		}
 
 		setFilteredEvents(filtered)
 	}, [startDate, endDate, category, eventList])
 
 	return (
-		<section>
+		<>
 			<EventCalendar categories={categories} setCategory={setCategory} setStartDate={setStartDate} setEndDate={setEndDate} />
-			<div className="grid grid-cols-1 gap-y-8 mx-4">
+			<div className="grid grid-cols-1 justify-items-center gap-8 mx-4 md:grid-cols-2 lg:grid-cols-3">
 				{filteredEvents.length > 0 ? (
 					filteredEvents.map((eventItem: Event, index) => <EventComponent key={`event_${index}`} eventItem={eventItem} isVisible={true} />)
 				) : (
 					<p className="mt-16 text-center">Keine Ereignisse für diese Kriterien gefunden.</p>
 				)}
 			</div>
-		</section>
+		</>
 	)
 }
 

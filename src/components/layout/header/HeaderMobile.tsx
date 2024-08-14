@@ -16,7 +16,7 @@ const HeaderMobile = () => {
 	const [isClient, setIsClient] = useState<boolean>(false)
 
 	const router = useRouter()
-	const isAuthenticated = true
+	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -60,7 +60,14 @@ const HeaderMobile = () => {
 				>
 					<Burger isActive={isActive} />
 				</div>
-				<Image className="h-8 mx-auto" src="/images/Standarte_LM.svg" alt="Logo der Standarde von der Legion Mariens" width={32} height={60} />
+				<Image
+					onClick={() => setIsAuthenticated(!isAuthenticated)}
+					className="h-8 mx-auto"
+					src="/images/Standarte_LM.svg"
+					alt="Logo der Standarde von der Legion Mariens"
+					width={32}
+					height={60}
+				/>
 				{isAuthenticated && (
 					<div
 						className="cursor-pointer grid justify-items-end"

@@ -1,6 +1,6 @@
 const EventCalendar = ({ categories, setCategory, setStartDate, setEndDate }) => {
 	return (
-		<section className="flex flex-col items-center gap-y-4 my-8">
+		<section className="grid grid-cols-1 gap-4 my-8 mx-auto md:grid-cols-3 md:mx-4">
 			<select onChange={e => setCategory(e.target.value)}>
 				<option value="Alle Kategorien">Alle Kategorien</option>
 				{categories &&
