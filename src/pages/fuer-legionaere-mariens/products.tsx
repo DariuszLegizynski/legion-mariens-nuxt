@@ -75,17 +75,17 @@ const products = () => {
 
 	return (
 		<Layout>
-			<article className="max-container mb-24">
+			<section className="max-container mb-24">
 				<h1 className="text-center">Materiallstelle</h1>
 				<ProductCategories productCategories={productCategories} setProductCategory={setProductCategory} />
-				<section className="grid grid-cols-2 items-center gap-5 mx-5">
+				<section className="grid grid-cols-1 items-center justify-items-center gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
 					{filteredProducts?.length > 0 ? (
 						filteredProducts?.map((productItem: Product) => <ProductComponent key={`product_${productItem.id}`} productItem={productItem} />)
 					) : (
 						<p className="my-16 col-span-2 text-center text-accent">Keine Produkte für diese Kategorie gefunden.</p>
 					)}
 				</section>
-			</article>
+			</section>
 		</Layout>
 	)
 }

@@ -1,31 +1,71 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import type { Product } from "@/types/Product"
 import Image from "next/image"
 import BaseButton from "@/components/base/BaseButton"
 
 const ProductComponent: FC<{ productItem: Product }> = ({ productItem }) => {
+	const [warehouseQuantity, setWarehouseQuantity] = useState<number>(productItem.attributes?.quantity)
+	const [quantity, setQuantity] = useState<number>(0)
+
+	const handleDecrease = () => {
+		if (quantity > 0) {
+			setQuantity(quantity - 1)
+			setWarehouseQuantity(warehouseQuantity + 1)
+			return
+		}
+		setQuantity(0)
+		setWarehouseQuantity(warehouseQuantity)
+	}
+
+	const handleIncrease = () => {
+		if (warehouseQuantity > 0) {
+			setQuantity(quantity + 1)
+			setWarehouseQuantity(warehouseQuantity - 1)
+			return
+		}
+		setQuantity(0)
+		setWarehouseQuantity(warehouseQuantity)
+	}
+
+	const endPrice = quantity * productItem.attributes.price
+
 	return (
-		<article className="border border-grey rounded-lg p-2">
+		<article className="border border-grey rounded-lg p-2 max-w-64 w-full sm:max-w-72 h-full">
 			<Image
-				className="h-96 p-2 w-auto object-contain mx-auto"
+				className="h-80 p-1.5 w-full object-contain mx-auto"
 				src={`${process.env.API_URL}${productItem.attributes.image.data.attributes.url}`}
 				alt={`${process.env.API_URL}/${productItem.attributes.image.data.attributes.alternativeText}`}
 				width={100}
-				height={400}
+				height={200}
 			/>
-			<section className="h-72 flex flex-col justify-between">
-				<div className="grid grid-rows-[auto_100px_auto] mt-4">
+			<section className="flex flex-col justify-between">
+				<div className="mt-4 grid grid-rows-[auto_auto_auto] sm:grid-rows-[auto_auto_102px]">
 					<i>{productItem.attributes?.product_category?.data?.attributes?.name}</i>
-					<h2 className="!capitalize" style={{ fontFamily: "Open-Sans, sans-serif" }}>
+					<p className="mt-2">Best.Nr: {productItem.attributes?.article_code}</p>
+					<h2 className="!capitalize text-lg max-w-60" style={{ fontFamily: "Open-Sans, sans-serif" }}>
 						{productItem.attributes?.title}
 					</h2>
-					<p>Best.Nr: {productItem.attributes?.article_code}</p>
 				</div>
-
-				<p>{productItem.attributes?.quantity}</p>
-				<p>€ {productItem.attributes?.price.toFixed(2).replace(".", ",")}</p>
-				<div className="flex justify-center w-full">
-					<BaseButton buttonType="cart" text="Zum Warenkorb" />
+				<p className="flex mt-4 justify-end">
+					Preis:&nbsp;<b>€&nbsp;{productItem.attributes?.price.toFixed(2).replace(".", ",")}</b>&nbsp;/&nbsp;pro Stück
+				</p>
+				<div className="flex flex-col mt-4">
+					<p>Auf Lager: {warehouseQuantity}</p>
+					<div className="flex justify-start items-center my-4">
+						<div className="grid grid-cols-3 border">
+							<button className="px-4 py-2" onClick={handleDecrease}>
+								-
+							</button>
+							<p className="px-4 py-2">{quantity}</p>
+							<button className="px-4 py-2" onClick={handleIncrease}>
+								+
+							</button>
+						</div>
+						<b>&nbsp;=&nbsp;€&nbsp;{endPrice.toFixed(2).replace(".", ",")}</b>
+					</div>
+				</div>
+				<div className="flex justify-center w-full mt-4">
+					<BaseButton buttonType="cart" text="Zum Warenkorb" iconType="cart" width="1.4rem" height="1.4rem" fillColor="white" strokeColor="none" />
 				</div>
 			</section>
 		</article>

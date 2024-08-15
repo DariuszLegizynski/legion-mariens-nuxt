@@ -10,10 +10,12 @@ interface BaseButtonProps {
 	height?: string
 	linkPath?: string
 	isDisabled?: boolean
+	fillColor?: string
+	strokeColor?: string
 	onClick?: () => void
 }
 
-const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, width, height, linkPath, isDisabled, onClick }) => {
+const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, width, height, linkPath, isDisabled, fillColor, strokeColor, onClick }) => {
 	return (
 		<>
 			{buttonType === "close" && (
@@ -39,9 +41,13 @@ const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, wid
 			{buttonType === "cart" && (
 				<button
 					onClick={onClick}
-					className="p-2 text-black capitalize w-full max-w-52 border border-grey rounded-xl hover:text-white focus:text-white hover:bg-primary focus:bg-primary"
+					onMouseUp={e => e.currentTarget.blur()}
+					className="p-2 capitalize w-full max-w-52 text-white bg-primary-light border border-grey rounded-xl hover:text-white active:text-white hover:bg-primary active:bg-primary"
 				>
-					<p>{text}</p>
+					<p className="flex items-center justify-center gap-x-2">
+						<IconItems type={iconType} width={width} height={height} fillColor={fillColor} strokeColor={strokeColor} />
+						{text}
+					</p>
 				</button>
 			)}
 		</>

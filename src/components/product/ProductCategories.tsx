@@ -10,7 +10,7 @@ interface ProductCategoriesProps {
 
 const ProductCategories: FC<ProductCategoriesProps> = ({ productCategories, setProductCategory }) => {
 	return (
-		<section className="grid grid-cols-[1fr_1fr] justify-items-center gap-y-4 mx-auto my-8 xs:grid-cols-3 sm:grid-cols-5">
+		<section className="grid grid-cols-[1fr_1fr] justify-items-center gap-y-4 mx-auto w-full my-8 xs:grid-cols-3 md:grid-cols-6">
 			{productCategories &&
 				productCategories.map(prodCat => (
 					<ProductCategory key={prodCat.id} name={prodCat.attributes.name} iconType={prodCat.attributes.iconType} setProductCategory={setProductCategory} />
