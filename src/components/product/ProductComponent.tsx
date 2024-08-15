@@ -1,33 +1,46 @@
-import { FC, useState } from "react"
+import { FC, useState, useEffect } from "react"
 import type { Product } from "@/types/Product"
 import Image from "next/image"
 import BaseButton from "@/components/base/BaseButton"
 
 const ProductComponent: FC<{ productItem: Product }> = ({ productItem }) => {
 	const [warehouseQuantity, setWarehouseQuantity] = useState<number>(productItem.attributes?.quantity)
-	const [quantity, setQuantity] = useState<number>(0)
+	const [amount, setAmount] = useState<number>(0)
+	const [endPrice, setEndPrice] = useState<number>(0)
 
 	const handleDecrease = () => {
-		if (quantity > 0) {
-			setQuantity(quantity - 1)
+		if (amount > 0) {
+			setAmount(amount - 1)
 			setWarehouseQuantity(warehouseQuantity + 1)
+
 			return
 		}
-		setQuantity(0)
+		setAmount(0)
 		setWarehouseQuantity(warehouseQuantity)
 	}
 
 	const handleIncrease = () => {
 		if (warehouseQuantity > 0) {
-			setQuantity(quantity + 1)
+			setAmount(amount + 1)
 			setWarehouseQuantity(warehouseQuantity - 1)
+
 			return
 		}
-		setQuantity(0)
+		setAmount(0)
 		setWarehouseQuantity(warehouseQuantity)
 	}
 
-	const endPrice = quantity * productItem.attributes.price
+	const calculateEndPrice = () => {
+		setEndPrice(amount * productItem.attributes?.price)
+	}
+
+	useEffect(() => {
+		calculateEndPrice()
+	}, [amount])
+
+	const addToCart = price => {
+		console.log("hello from cart: ", price)
+	}
 
 	return (
 		<article className="border border-grey rounded-lg p-2 max-w-64 w-full sm:max-w-72 h-full">
@@ -56,7 +69,7 @@ const ProductComponent: FC<{ productItem: Product }> = ({ productItem }) => {
 							<button className="px-4 py-2" onClick={handleDecrease}>
 								-
 							</button>
-							<p className="px-4 py-2">{quantity}</p>
+							<p className="px-4 py-2">{amount}</p>
 							<button className="px-4 py-2" onClick={handleIncrease}>
 								+
 							</button>
@@ -65,7 +78,16 @@ const ProductComponent: FC<{ productItem: Product }> = ({ productItem }) => {
 					</div>
 				</div>
 				<div className="flex justify-center w-full mt-4">
-					<BaseButton buttonType="cart" text="Zum Warenkorb" iconType="cart" width="1.4rem" height="1.4rem" fillColor="white" strokeColor="none" />
+					<BaseButton
+						onClick={addToCart(endPrice)}
+						buttonType="cart"
+						text="Zum Warenkorb"
+						iconType="cart"
+						width="1.4rem"
+						height="1.4rem"
+						fillColor="white"
+						strokeColor="none"
+					/>
 				</div>
 			</section>
 		</article>

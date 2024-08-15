@@ -61,8 +61,6 @@ const products = () => {
 		fetchProductCategories()
 	}, [])
 
-	console.log(productsData)
-
 	useEffect(() => {
 		let filtered = productsData.data
 
