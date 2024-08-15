@@ -58,7 +58,7 @@ const login = () => {
 
 	return (
 		<Layout>
-			<article className="my-20 mx-8">
+			<article className="my-20 mx-8 flex flex-col items-center">
 				<div className={`text-left mb-8 ${loggedIn ? "h2" : "h3"}`}>{loggedIn ? "Legionsleben" : "Anmelden (Geschützte Seite)"}</div>
 				{!loggedIn && (
 					<section>
