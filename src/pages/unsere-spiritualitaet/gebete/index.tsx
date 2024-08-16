@@ -19,7 +19,7 @@ const Gebete = () => {
 		}
 		fetchData()
 	}, [])
-
+	console.log({ prayerContentData })
 	return (
 		<Layout>
 			<article className="mt-24 mx-4">

@@ -1,7 +1,6 @@
 import type { Content, Child } from "@/types/LandingPage"
 
 const TitleContext = ({ title, content }) => {
-	console.log({ title, content })
 	return (
 		<section className="flex flex-col mb-8">
 			<div className="h2 my-2.5">{title}</div>

@@ -2,6 +2,7 @@ import Image from "next/image"
 import BaseButton from "@/components/base/BaseButton"
 
 const PrayerItem = ({ prayerItem }) => {
+	console.log({ prayerItem })
 	return (
 		<div>
 			<div className={`grid ${prayerItem.image.data ? "sm:grid-cols-[auto_1fr] gap-x-8" : "mb-16"}`}>
@@ -15,7 +16,7 @@ const PrayerItem = ({ prayerItem }) => {
 					/>
 				)}
 				<div>
-					<i>{prayerItem.prayerCategory}</i>
+					<i>{prayerItem.prayerCategory?.data?.attributes?.name}</i>
 					<h2>{prayerItem.title}</h2>
 					<div
 						className={`mt-6 ${prayerItem.pdf.data ? "mb-8" : "mb-16 xl:mb-4"}`}
