@@ -17,7 +17,7 @@ const Hero = () => {
 	}, [])
 
 	return (
-		<section className="flex flex-col items-center justify-items-center gap-y-4 mt-12 mx-4 md:grid md:grid-cols-[1fr_auto_1fr] md:gap-x-8 md:mt-20 md:">
+		<section className="flex flex-col items-center justify-items-center gap-y-4 mt-12 mx-4 md:grid md:grid-cols-[5fr_2fr_5fr] md:gap-x-8 md:mt-20 md:">
 			{heroContent?.leftImage?.url && (
 				<Link href="/">
 					<Image
@@ -31,7 +31,7 @@ const Hero = () => {
 			)}
 			{heroContent?.centerImage?.url && (
 				<Image
-					className="max-w-[400px] w-full md:max-w-[100px]"
+					className="max-w-[400px] w-full md:max-w-[640px]"
 					src={`${process.env.API_URL}${heroContent.centerImage?.url}`}
 					alt={`${process.env.API_URL}/${heroContent.centerImage?.alternativeText}`}
 					width={400}

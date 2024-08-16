@@ -11,6 +11,7 @@ import { LandingPageData, Content, Child } from "@/types/LandingPage"
 import Separator from "@/components/base/Separator"
 import EventComponent from "@/components/event/EventComponent"
 import BaseButton from "@/components/base/BaseButton"
+import TitleContext from "@/components/common/TitleContext"
 
 export const metadata = {
 	title: "Legion Mariens",
@@ -66,31 +67,11 @@ const Home = () => {
 							/>
 						</section>
 					)}
-					{mainContentData.about && (
-						<section className="flex flex-col mb-8">
-							<div className="h2 my-2.5">{mainContentData.about?.title}</div>
-							<div
-								dangerouslySetInnerHTML={{
-									__html: mainContentData.about?.content?.map((item: Content) => item.children.map((child: Child) => child.text).join("")).join(""),
-								}}
-								className="text-left mt-4 grid gap-y-4"
-							/>
-						</section>
-					)}
+					{mainContentData.about && <TitleContext title={mainContentData.about?.title} content={mainContentData.about?.content} />}
 				</div>
 				<Separator />
 				<div className="md:grid md:grid-cols-2 md:gap-x-16">
-					{mainContentData.termine && (
-						<section className="flex flex-col mb-8">
-							<div className="h2 my-2.5">{mainContentData.termine?.title}</div>
-							<div
-								dangerouslySetInnerHTML={{
-									__html: mainContentData.termine?.content?.map((item: Content) => item.children.map((child: Child) => child.text).join("")).join(""),
-								}}
-								className="text-left mt-4 grid gap-y-4"
-							/>
-						</section>
-					)}
+					{mainContentData.termine && <TitleContext title={mainContentData.termine?.title} content={mainContentData.termine?.content} />}
 					<section className="grid grid-cols-1 justify-items-center gap-y-8 mt-8 xl:grid-cols-2 xl:gap-x-8">
 						{events.length > 0 ? (
 							events.map((eventItem: Event, index) => <EventComponent key={`event_${index}`} eventItem={eventItem} isVisible={true} />)

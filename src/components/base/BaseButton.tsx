@@ -12,10 +12,23 @@ interface BaseButtonProps {
 	isDisabled?: boolean
 	fillColor?: string
 	strokeColor?: string
+	isDownload?: boolean
 	onClick?: () => void
 }
 
-const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, width, height, linkPath, isDisabled, fillColor, strokeColor, onClick }) => {
+const BaseButton: React.FC<BaseButtonProps> = ({
+	buttonType,
+	iconType,
+	text,
+	width,
+	height,
+	linkPath,
+	isDisabled,
+	fillColor,
+	strokeColor,
+	isDownload,
+	onClick,
+}) => {
 	return (
 		<>
 			{buttonType === "close" && (
@@ -24,7 +37,11 @@ const BaseButton: React.FC<BaseButtonProps> = ({ buttonType, iconType, text, wid
 				</button>
 			)}
 			{buttonType === "accent" && (
-				<Link href={`${linkPath}`} className="p-2 min-w-56 text-accent text-sm text-center uppercase border-2 border-accent w-full max-w-72">
+				<Link
+					download={isDownload}
+					href={`${linkPath}`}
+					className="p-2 min-w-56 text-accent text-sm text-center uppercase border-2 border-accent w-full max-w-72"
+				>
 					{text}
 				</Link>
 			)}
